@@ -4,6 +4,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
 #include "Screen.h"
+#include "VectorUtils.h"
 #include "MovingPlatform.generated.h"
 
 UCLASS()
@@ -11,21 +12,27 @@ class PUZZLEPLATFORMS_API AMovingPlatform : public AActor
 {
 	GENERATED_BODY()
 
-	AMovingPlatform();
-	
-	virtual void BeginPlay() override;
+	public:
 
-	virtual void Tick(float DeltaTime) override;
+		AMovingPlatform();
 
-	UFUNCTION()
-	void OnOverlapBegin(
-		class UPrimitiveComponent* OverlappedComp, 
-		class AActor* OtherActor, 
-		class UPrimitiveComponent* OtherComp, 
-		int32 OtherBodyIndex, 
-		bool bFromSweep,
-		const FHitResult& SweepResult
-	);
+		UBoxComponent* InitializeCollider(USceneComponent* Parent);
+
+		UStaticMeshComponent* InitializeMesh(UBoxComponent* Parent);
+
+		virtual void BeginPlay() override;
+
+		virtual void Tick(float DeltaTime) override;
+
+		UFUNCTION()
+		void OnOverlapBegin(
+			class UPrimitiveComponent* OverlappedComp, 
+			class AActor* OtherActor, 
+			class UPrimitiveComponent* OtherComp, 
+			int32 OtherBodyIndex, 
+			bool bFromSweep,
+			const FHitResult& SweepResult
+		);
 
 	private:
 
@@ -33,23 +40,31 @@ class PUZZLEPLATFORMS_API AMovingPlatform : public AActor
 			EditAnywhere,
 			BlueprintReadWrite,
 			Category = "Moving Platform", 
-			meta = (AllowPrivateAccess = "true")
+			meta = (AllowPrivateAccess = true, MakeEditWidget = true)
 		)
-		float Speed = 200;
-		
-		UPROPERTY(
-			EditAnywhere, 
-			BlueprintReadWrite,
-			Category = "Moving Platform",
-			meta = (AllowPrivateAccess = "true")
-		)
-		class UStaticMeshComponent* Mesh;
+		FVector TargetLocation;
 
 		UPROPERTY(
 			EditAnywhere,
 			BlueprintReadWrite,
 			Category = "Moving Platform", 
-			meta = (AllowPrivateAccess = "true")
+			meta = (AllowPrivateAccess = true)
 		)
-		UBoxComponent* BoxCollider;
+		float Speed = 200;
+
+		UPROPERTY(
+			EditAnywhere, 
+			BlueprintReadWrite,
+			Category = "Moving Platform",
+			meta = (AllowPrivateAccess = true)
+		)
+		UStaticMeshComponent* Mesh;
+
+		UPROPERTY(
+			EditAnywhere,
+			BlueprintReadWrite,
+			Category = "Moving Platform", 
+			meta = (AllowPrivateAccess = true)
+		)
+		UBoxComponent* Collider;
 };

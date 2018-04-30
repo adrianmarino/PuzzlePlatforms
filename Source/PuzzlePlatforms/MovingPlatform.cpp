@@ -1,18 +1,43 @@
 #include "MovingPlatform.h"
 
+//-----------------------------------------------------------------------------
+// Constructors / Destructor
+//-----------------------------------------------------------------------------
+
 AMovingPlatform::AMovingPlatform() {
     PrimaryActorTick.bCanEverTick= true;
-    
-    BoxCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("MovingPlatformCollider"));
-    BoxCollider->SetCollisionProfileName(TEXT("MovingPlatformCollider"));
-    BoxCollider->OnComponentBeginOverlap.AddDynamic(this, &AMovingPlatform::OnOverlapBegin);
 
-    BoxCollider->SetupAttachment(RootComponent);
-    RootComponent = BoxCollider; 
-
-    Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MovingPlatformMesh"));
-    Mesh->SetupAttachment(BoxCollider);
+    Collider = this->InitializeCollider(RootComponent);
+    Mesh = this->InitializeMesh(Collider);
 }
+
+//-----------------------------------------------------------------------------
+// Intializers
+//-----------------------------------------------------------------------------
+
+UBoxComponent* AMovingPlatform::InitializeCollider(USceneComponent* Parent) {        
+    UBoxComponent* collider = CreateDefaultSubobject<UBoxComponent>(TEXT("MovingPlatformCollider"));
+    collider->SetCollisionProfileName(TEXT("MovingPlatformCollider"));
+ 
+    // Detect overlaing with other objects...
+    collider->OnComponentBeginOverlap.AddDynamic(this, &AMovingPlatform::OnOverlapBegin);
+ 
+    // Nest to actor...
+    collider->SetupAttachment(Parent);
+    Parent = collider; 
+
+    return collider;
+}
+
+UStaticMeshComponent* AMovingPlatform::InitializeMesh(UBoxComponent* Parent) {
+    UStaticMeshComponent* mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MovingPlatformMesh"));
+    mesh->SetupAttachment(Parent);
+    return mesh;
+}
+
+//-----------------------------------------------------------------------------
+// Methods
+//-----------------------------------------------------------------------------
 
 void AMovingPlatform::OnOverlapBegin(
 	class UPrimitiveComponent* OverlappedComp, 
@@ -22,13 +47,13 @@ void AMovingPlatform::OnOverlapBegin(
 	bool bFromSweep, 
 	const FHitResult& SweepResult
 ) {
-    Screen::Message(TEXT("Algo!"));
-    
+    Screen::Message(OtherActor->GetName());
+
     AActor* Actor = Cast<AActor>(OtherActor);
 	if(Actor == nullptr) return;
 
-    Screen::Message(TEXT("Collision: " + Actor->GetName()));
-    Speed *= -1;
+    Screen::Message(TEXT("Collision!"));
+    Speed = Speed * -1; 
 }
 
 void AMovingPlatform::BeginPlay() {
@@ -41,6 +66,10 @@ void AMovingPlatform::BeginPlay() {
 
 void AMovingPlatform::Tick(float DeltaTime) {
     Super::Tick(DeltaTime);
-     if(HasAuthority())
-        SetActorLocation(GetActorLocation() + (FVector::ForwardVector * Speed * DeltaTime));
+    if(HasAuthority()) {
+        FVector Traget = GetTransform().TransformPosition(TargetLocation);
+        FVector Direction = VectorUtils::Direction(GetActorLocation(), Traget);
+        FVector Increment = Direction * Speed * DeltaTime;
+        SetActorLocation(GetActorLocation() + Increment);
+    }
 }
