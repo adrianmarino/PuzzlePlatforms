@@ -44,6 +44,10 @@ public:
 
     bool LimitReached();
 
+    float TrackTravelled();
+
+    float TrackLenght();
+
 private:
 
     void ActorLocation(FVector location);

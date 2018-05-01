@@ -38,10 +38,11 @@ FVector TrackWalker::Direction() {
     return VectorUtils::Direction(GlobalInitialLocation, GlobalEndLocation);
 }
 
-bool TrackWalker::LimitReached() {
-    return FVector::Dist(ActorLocation(), GlobalInitialLocation) <= 5 ||
-    FVector::Dist(ActorLocation(), GlobalEndLocation) <= 5;
-}
+bool TrackWalker::LimitReached() { return TrackTravelled() >= TrackLenght(); }
+
+float TrackWalker::TrackTravelled() { return FVector::Dist(ActorLocation(), GlobalInitialLocation); }
+
+float TrackWalker::TrackLenght() { return FVector::Dist(GlobalEndLocation, GlobalInitialLocation);}
 
 void TrackWalker::InvertDirection() {
     FVector Inicial = GlobalInitialLocation;
