@@ -39,25 +39,9 @@ UStaticMeshComponent* AMovingPlatform::InitializeMesh(UBoxComponent* Parent) {
 // Methods
 //-----------------------------------------------------------------------------
 
-void AMovingPlatform::OnOverlapBegin(
-	class UPrimitiveComponent* OverlappedComp, 
-	class AActor* OtherActor, 
-	class UPrimitiveComponent* OtherComp, 
-	int32 OtherBodyIndex, 
-	bool bFromSweep, 
-	const FHitResult& SweepResult
-) {
-    Screen::Message(OtherActor->GetName());
-
-    AActor* Actor = Cast<AActor>(OtherActor);
-	if(Actor == nullptr) return;
-
-    Screen::Message(TEXT("Collision!"));
-    Speed = Speed * -1; 
-}
-
 void AMovingPlatform::BeginPlay() {
     Super::BeginPlay();
+    ActorTrack = new TrackWalker(this, LocalInicial, LocalTarget, Speed);
     if(HasAuthority()) {
         SetReplicates(true);
         SetReplicateMovement(true);
@@ -66,10 +50,20 @@ void AMovingPlatform::BeginPlay() {
 
 void AMovingPlatform::Tick(float DeltaTime) {
     Super::Tick(DeltaTime);
-    if(HasAuthority()) {
-        FVector Traget = GetTransform().TransformPosition(TargetLocation);
-        FVector Direction = VectorUtils::Direction(GetActorLocation(), Traget);
-        FVector Increment = Direction * Speed * DeltaTime;
-        SetActorLocation(GetActorLocation() + Increment);
-    }
+    if(HasAuthority()) ActorTrack->Update(DeltaTime);
+}
+
+void AMovingPlatform::OnOverlapBegin(
+	class UPrimitiveComponent* OverlappedComp, 
+	class AActor* OtherActor, 
+	class UPrimitiveComponent* OtherComp, 
+	int32 OtherBodyIndex, 
+	bool bFromSweep, 
+	const FHitResult& SweepResult
+) {
+    AActor* Actor = Cast<AActor>(OtherActor);
+	if(Actor == nullptr) return;
+
+    Screen::Message(TEXT("Plaforform Collision! Invert direction."));
+    ActorTrack->InvertDirection(); 
 }
