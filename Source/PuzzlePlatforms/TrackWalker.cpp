@@ -45,7 +45,7 @@ float TrackWalker::TrackTravelled() { return FVector::Dist(ActorLocation(), Glob
 float TrackWalker::TrackLenght() { return FVector::Dist(GlobalEndLocation, GlobalInitialLocation);}
 
 void TrackWalker::InvertDirection() {
-    FVector Inicial = GlobalInitialLocation;
+    FVector Swap = GlobalInitialLocation;
     GlobalInitialLocation = GlobalEndLocation;
-    GlobalEndLocation = Inicial;
+    GlobalEndLocation = Swap;
 }
