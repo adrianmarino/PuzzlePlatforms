@@ -1,12 +1,11 @@
 #include "MovingPlatform.h"
 
 //-----------------------------------------------------------------------------
-// Constructors / Destructor
+// Constructors
 //-----------------------------------------------------------------------------
 
 AMovingPlatform::AMovingPlatform() {
     PrimaryActorTick.bCanEverTick= true;
-
     Collider = this->InitializeCollider(RootComponent);
     Mesh = this->InitializeMesh(Collider);
 }
@@ -50,7 +49,7 @@ void AMovingPlatform::BeginPlay() {
 
 void AMovingPlatform::Tick(float DeltaTime) {
     Super::Tick(DeltaTime);
-    if(HasAuthority()) ActorTrack->Update(DeltaTime);
+    if(HasAuthority() && IsActive()) ActorTrack->Update(DeltaTime);
 }
 
 void AMovingPlatform::OnOverlapBegin(
@@ -64,6 +63,12 @@ void AMovingPlatform::OnOverlapBegin(
     AActor* Actor = Cast<AActor>(OtherActor);
 	if(Actor == nullptr) return;
 
-    Screen::Message(TEXT("Plaforform Collision! Invert direction."));
+    // Screen::Message(TEXT("Plaforform Collision! Invert direction."));
     ActorTrack->InvertDirection(); 
 }
+
+bool AMovingPlatform::IsActive() { return Activations > 0; }
+
+void AMovingPlatform::AddActivation() { Activations += 1; }
+
+void AMovingPlatform::RemoveActivation() { if(IsActive()) Activations -= 1; }
