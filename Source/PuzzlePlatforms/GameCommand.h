@@ -14,10 +14,10 @@ public:
         AGameStateBase* GameState = World->GetGameState<AGameStateBase>();        
         if(Assert::NotNull(GameState, "GameState")) return;
 
-        FString Output = FString("Players\n");
+        FString Output = FString("Connected Players\n");
         for(APlayerState* Player: GameState->PlayerArray)
             Output += FString::Printf(
-                TEXT(" - Id: %s, Nickname: %s"),
+                TEXT(" => Id: %s - Name: %s"),
                 *FString::FromInt(Player->PlayerId),
                 *Str::Try(Player->GetPlayerName(), "Unknow")
             );
