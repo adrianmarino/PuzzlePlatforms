@@ -30,8 +30,9 @@ public:
         World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
     }
 
-    static void JoinToHostGame(UWorld* World, FString Address) {
-        if(Assert::NotNull(World, "World")) return;
-        Screen::Info(FString::Printf(TEXT("Join to Game in %s adress"), &Address));
+    static void JoinToHostGame(APlayerController* PlayerController, FString Address) {
+        if(Assert::NotNull(PlayerController, "PlayerController")) return;
+        Screen::Info(FString::Printf(TEXT("Join to Game in %s adress"), *Address));
+        PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
     }
 };

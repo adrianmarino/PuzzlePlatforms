@@ -5,5 +5,5 @@ void UPuzzlePlatformsGameInstance::StartHostGame() {
 }
 
 void UPuzzlePlatformsGameInstance::JoinToHostGame(FString Address) { 
-    GameCommand::JoinToHostGame(GetWorld(), Address);
+    GameCommand::JoinToHostGame(GetFirstLocalPlayerController(), Address);
 }
