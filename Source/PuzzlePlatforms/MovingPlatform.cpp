@@ -63,8 +63,8 @@ void AMovingPlatform::OnOverlapBegin(
     AActor* Actor = Cast<AActor>(OtherActor);
 	if(Actor == nullptr) return;
 
-    // Screen::Message(TEXT("Plaforform Collision! Invert direction."));
-    ActorTrack->InvertDirection(); 
+    // Screen::Info(TEXT("Plaforform Collision! Invert direction."));
+    ActorTrack->InvertDirection();
 }
 
 bool AMovingPlatform::IsActive() { return Activations > 0; }

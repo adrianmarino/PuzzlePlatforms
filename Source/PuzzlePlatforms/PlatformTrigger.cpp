@@ -19,7 +19,7 @@ void APlatformTrigger::OnOverlapBegin(
 	bool bFromSweep, 
 	const FHitResult& SweepResult
 ) {
-	// Screen::Message(TEXT("Pressing Button!"));
+	// Screen::Info(TEXT("Pressing Button!"));
 	for(auto Platform : Platforms) Platform->AddActivation();
 }
 
@@ -29,7 +29,7 @@ void APlatformTrigger::OnOverlapEnd(
 	UPrimitiveComponent* OtherComp, 
 	int32 OtherBodyIndex
 ) {
-	// Screen::Message(TEXT("Stop press Button!"));
+	// Screen::Info(TEXT("Stop press Button!"));
 	for(auto Platform: Platforms) Platform->RemoveActivation();
 }
 

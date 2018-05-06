@@ -10,4 +10,12 @@ APuzzlePlatformsGameMode::APuzzlePlatformsGameMode() {
 	if (PlayerPawnBPClass.Class != NULL) {
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+
+	//tell your custom game mode to use your custom player controller
+    PlayerControllerClass = APuzzlePlatformsPlayerController::StaticClass();
+
+    // GameStateClass = ACustomGameState::StaticClass();
+    // HUDClass = ACustomGameHUD::StaticClass();
+    // ReplaySpectatorPlayerControllerClass = ACustomReplaySpectatorPlayerController::StaticClass();
+    // SpectatorClass = ACustomSpectatorClass::StaticClass();
 }

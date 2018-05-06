@@ -22,7 +22,7 @@ TrackWalker::TrackWalker(
 
 void TrackWalker::Update(float deltaTime) { 
     if(LimitReached()) {
-        // Screen::Message(TEXT("Limit reached! Invert direction!"));
+        // Screen::Info(TEXT("Limit reached! Invert direction!"));
         InvertDirection();
     }
     ActorLocation(ActorLocation() + Step(deltaTime));

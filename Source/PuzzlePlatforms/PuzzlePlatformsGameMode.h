@@ -4,6 +4,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "PuzzlePlatformsCharacter.h"
 #include "UObject/ConstructorHelpers.h"
+#include "PuzzlePlatformsPlayerController.h"
 #include "PuzzlePlatformsGameMode.generated.h"
 
 UCLASS(minimalapi)
