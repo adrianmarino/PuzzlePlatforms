@@ -1,6 +1,9 @@
 #pragma one
 
 class Assert {
+private:
+    Assert() {}
+
 public:
     static bool NotNull(void* Object, FString name) {
         if(Object == nullptr) {

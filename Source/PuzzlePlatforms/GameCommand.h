@@ -7,6 +7,8 @@
 #include "GameFramework/PlayerState.h"
 
 class GameCommand {
+private:
+    GameCommand() {}
 
 public:
     static void Players(UWorld* World) {

@@ -4,6 +4,9 @@
 #include <stdlib.h>
 
 class VectorUtils {
+private:
+    VectorUtils() {}
+
 public:
     static FVector Direction(FVector VectorA, FVector VectorB) { 
         return (VectorB - VectorA).GetSafeNormal();

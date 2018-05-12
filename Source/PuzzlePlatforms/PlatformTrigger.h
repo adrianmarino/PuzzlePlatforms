@@ -16,6 +16,7 @@ class PUZZLEPLATFORMS_API APlatformTrigger : public AActor
 //-----------------------------------------------------------------------------
 
 private:
+
 	UPROPERTY(
 		VisibleAnywhere,
 		BlueprintReadWrite,
