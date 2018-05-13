@@ -1,11 +1,19 @@
 #include "PuzzlePlatformsGameInstance.h"
+#include "PlatformTrigger.h"
 
 //-----------------------------------------------------------------------------
 // Constructors
 //-----------------------------------------------------------------------------
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance() {
-    UE_LOG(LogTemp, Warning, TEXT("Construct Game Instance!"));
+	static ConstructorHelpers::FClassFinder<APlatformTrigger> PlatformTriggerBPClassFinder(MAIN_MENU_BP);
+    Assert::NotNull(&PlatformTriggerBPClassFinder);
+
+    FString* prueba = nullptr;
+    
+    Assert::NotNull(prueba);
+ 
+    UE_LOG(LogTemp, Warning, TEXT("Found %s class"), *PlatformTriggerBPClassFinder.Class->GetName());
 }
 
 //-----------------------------------------------------------------------------
