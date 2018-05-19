@@ -1,26 +1,25 @@
 #include "PuzzlePlatformsGameInstance.h"
-#include "PlatformTrigger.h"
 
 //-----------------------------------------------------------------------------
 // Constructors
 //-----------------------------------------------------------------------------
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance() {
-	static ConstructorHelpers::FClassFinder<APlatformTrigger> PlatformTriggerBPClassFinder(MAIN_MENU_BP);
-    Assert::NotNull(&PlatformTriggerBPClassFinder);
+    static ConstructorHelpers::FClassFinder<UUserWidget> MenuBPClass(TEXT("/Game/MenuSystem/WBP_MainMenu"));
+    Assert::NotNull(*MenuBPClass.Class);
+	MenuClass = MenuBPClass.Class;
 
-    FString* prueba = nullptr;
-    
-    Assert::NotNull(prueba);
- 
-    UE_LOG(LogTemp, Warning, TEXT("Found %s class"), *PlatformTriggerBPClassFinder.Class->GetName());
+    UE_LOG(LogTemp, Warning, TEXT("Construct Game Instance!"));
 }
 
 //-----------------------------------------------------------------------------
 // Methods
 //-----------------------------------------------------------------------------
 
-void UPuzzlePlatformsGameInstance::Init() { UE_LOG(LogTemp, Warning, TEXT("Initialize Game Instance!")); }
+void UPuzzlePlatformsGameInstance::Init() {
+    UE_LOG(LogTemp, Warning, TEXT("Found Class: %s"), *MenuClass->GetName());
+    UE_LOG(LogTemp, Warning, TEXT("Initialize Game Instance!"));
+}
 
 void UPuzzlePlatformsGameInstance::StartHostGame() { GameCommand::StartHostGame(GetWorld()); }
 

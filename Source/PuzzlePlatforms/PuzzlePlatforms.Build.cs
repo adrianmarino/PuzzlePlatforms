@@ -7,7 +7,15 @@ public class PuzzlePlatforms : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 		bUseRTTI = true;
 		bEnableExceptions = true;
+
 		// UEBuildConfiguration.bForceEnableExceptions = true;
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "HeadMountedDisplay" });
+		PublicDependencyModuleNames.AddRange(new string[] { 
+			"Core",
+			"CoreUObject",
+			"Engine",
+			"InputCore",
+			"HeadMountedDisplay",
+			"UMG"	
+		});
 	}
 }

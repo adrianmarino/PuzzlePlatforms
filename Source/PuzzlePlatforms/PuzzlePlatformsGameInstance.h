@@ -3,6 +3,7 @@
 #include "PuzzlePlatforms.h"
 #include "Engine/Engine.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Blueprint/UserWidget.h"
 #include "PuzzlePlatformsGameInstance.generated.h"
 
 UCLASS()
@@ -13,9 +14,14 @@ class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance
 //-----------------------------------------------------------------------------
 // Constants
 //-----------------------------------------------------------------------------
-
 private:
-	const TCHAR* MAIN_MENU_BP = TEXT("/Game/PuzzlePlatforms/BP/BP_PlatformTrigger");
+	const TCHAR* MAIN_MENU_BP = TEXT("/Game/MenuSystem/WBP_MainMenu");
+
+//-----------------------------------------------------------------------------
+// Attributes
+//-----------------------------------------------------------------------------
+private:
+	TSubclassOf<UUserWidget> MenuClass;
 
 //-----------------------------------------------------------------------------
 // Constructors
