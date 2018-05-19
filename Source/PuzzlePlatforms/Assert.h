@@ -1,6 +1,11 @@
 #pragma one
 
-#include "NullPointerException.h"
+#include "Screen.h"
+#include <sstream>
+#include <string>
+#include <exception>
+
+#include "CoreMinimal.h"
 #include "Screen.h"
 
 class Assert {
@@ -8,11 +13,9 @@ private:
     Assert() {}
 
 public:
-    template<typename T>
-    static void NotNull(T* Reference) {
-        if(Reference == nullptr) {
-            throw(NullPointerException<T>(Reference));
-            Screen::Error("Null reference!");
-        }
+    static bool NotNull(void* Reference, FString ClassName) {
+        if(Reference != nullptr) return false;
+        Screen::Error(TEXT("Error: Null %s reference!"), &ClassName);
+        return true;
     }
 };
