@@ -5,9 +5,10 @@
 //-----------------------------------------------------------------------------
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance() {
-    static ConstructorHelpers::FClassFinder<UUserWidget> MenuBPClass(TEXT("/Game/MenuSystem/WBP_MainMenu"));
-    if(Assert::NotNull(*MenuBPClass.Class, "MenuBPClass")) return;
-	MenuClass = MenuBPClass.Class;
+    BlueprintUtils::WidgetClassFrom(
+        "/Game/MenuSystem/WBP_MainMenu", 
+        [&](UClass* Class) { MenuClass = Class; }
+    );
     UE_LOG(LogTemp, Warning, TEXT("Construct Game Instance!"));
 }
 
