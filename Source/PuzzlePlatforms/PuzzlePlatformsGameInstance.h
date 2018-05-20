@@ -15,7 +15,7 @@ class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance
 // Constants
 //-----------------------------------------------------------------------------
 private:
-	const TCHAR* MAIN_MENU_BP = TEXT("/Game/MenuSystem/WBP_MainMenu");
+	const TCHAR* MAIN_MENU_BP_PATH = TEXT("/Game/MenuSystem/WBP_MainMenu");
 
 //-----------------------------------------------------------------------------
 // Attributes
@@ -36,6 +36,9 @@ public:
 
 public:
 	virtual void Init() override;
+
+	UFUNCTION(BluePrintCallable)
+	void LoadMainMenu();
 
 	UFUNCTION(Exec)
 	void StartHostGame();

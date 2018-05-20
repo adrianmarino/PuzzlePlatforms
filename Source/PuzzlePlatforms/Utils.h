@@ -4,4 +4,5 @@
 #include "VectorUtils.h"
 #include "TrackWalker.h"
 #include "Assert.h"
+#include "StringUtils.h"
 #include "BlueprintUtils.h"
