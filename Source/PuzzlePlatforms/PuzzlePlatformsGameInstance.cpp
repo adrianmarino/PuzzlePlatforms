@@ -20,7 +20,7 @@ void UPuzzlePlatformsGameInstance::Init() {
 }
 
 void UPuzzlePlatformsGameInstance::LoadMainMenu() { 
-    GameCommand::LoadMainMenu(GetWorld(), *MenuClass);
+    GameCommand::LoadMainMenu(GetFirstLocalPlayerController(), *MenuClass);
 }
 
 void UPuzzlePlatformsGameInstance::StartHostGame() { GameCommand::StartHostGame(GetWorld()); }

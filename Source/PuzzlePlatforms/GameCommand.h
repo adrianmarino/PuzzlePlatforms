@@ -13,7 +13,7 @@ class GameCommand {
         static void Players(UWorld* World);
         static void StartHostGame(UWorld* World);
         static void JoinToHostGame(APlayerController* PlayerController, FString Address);
-        static void LoadMainMenu(UWorld* World,  UClass* WidgetClass);
+        static void LoadMainMenu(APlayerController* PlayerController, UClass* WidgetClass);
 
     private:
         GameCommand() {}
