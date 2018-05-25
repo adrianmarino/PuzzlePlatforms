@@ -28,15 +28,17 @@ protected:
 // Methods
 //-----------------------------------------------------------------------------
 public:
-	void SetMenuInterface(IMenuInterface* menuInterface);
+	void Close();
 
-	static UMainMenu* CreateAndShow(
-		APlayerController* PlayerController, 
+	static void Show(
+		UWorld* World,
 		UClass* WidgetClass,
-		IMenuInterface* MenuInterface
+		IMenuInterface* menuInterface
 	);
 
 protected:
+	void Setup(IMenuInterface* menuInterface);
+
 	virtual bool Initialize();
 
 	UFUNCTION()

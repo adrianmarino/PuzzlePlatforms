@@ -18,9 +18,7 @@ void UPuzzlePlatformsGameInstance::Init() {
     UE_LOG(LogTemp, Warning, TEXT("Initialize Game Instance!"));    
 }
 
-void UPuzzlePlatformsGameInstance::LoadMainMenu() {
-    UMainMenu::CreateAndShow(GetFirstLocalPlayerController(), *MenuClass, this);
-}
+void UPuzzlePlatformsGameInstance::LoadMainMenu() { UMainMenu::Show(GetWorld(), *MenuClass, this); }
 
 void UPuzzlePlatformsGameInstance::StartHostGameAction() { GameCommand::StartHostGame(GetWorld()); };
 

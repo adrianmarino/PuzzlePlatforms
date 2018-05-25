@@ -6,16 +6,14 @@
 //-----------------------------------------------------------------------------
 
 void UMainMenu::StartHostGameButtonOnClicked() {
-    if(Assert::NotNull(MenuInterface, "MenuInterface")) return;
+    this->Close();
     MenuInterface->StartHostGameAction();
 }
 
 void UMainMenu::JoinToHostGameButtonOnClicked(){
-    if(Assert::NotNull(MenuInterface, "MenuInterface")) return;
+    this->Close();
     MenuInterface->JoinToHostGameAction();
 }
-
-void UMainMenu::SetMenuInterface(IMenuInterface* menuInterface) { this->MenuInterface = menuInterface; }
 
 bool UMainMenu::Initialize() {
     bool Success = Super::Initialize();
@@ -26,26 +24,54 @@ bool UMainMenu::Initialize() {
     return true;
 }
 
-UMainMenu* UMainMenu::CreateAndShow(
-    APlayerController* PlayerController, 
-    UClass* WidgetClass,
-    IMenuInterface* MenuInterface
-) {
-    if(Assert::NotNull(PlayerController, "PlayerController"))  return nullptr;
-    if(Assert::NotNull(WidgetClass, "MainMenuWidgetClass")) return nullptr;
+void UMainMenu::Setup(IMenuInterface* menuInterface) {
+    if(Assert::NotNull(menuInterface, "MenuInterface")) return;
+    MenuInterface = menuInterface;
 
-    UMainMenu* MainMenu = CreateWidget<UMainMenu>(PlayerController, WidgetClass);
-    if(Assert::NotNull(MainMenu, "MainMenuWidget")) return nullptr;
-    MainMenu->AddToViewport();
-
-    if(Assert::NotNull(MenuInterface, "MenuInterface")) return nullptr;
-    MainMenu->SetMenuInterface(MenuInterface);
+    this->AddToViewport();
 
     FInputModeUIOnly InputModeData;
-    InputModeData.SetWidgetToFocus(MainMenu->TakeWidget());
+    InputModeData.SetWidgetToFocus(this->TakeWidget());
     InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+
+    UWorld* World = GetWorld();
+    if(Assert::NotNull(World, "World"))  return;
+
+    APlayerController* PlayerController = World->GetFirstPlayerController(); 
+    if(Assert::NotNull(PlayerController, "PlayerController"))  return;
+
     PlayerController->SetInputMode(InputModeData);
     PlayerController->bShowMouseCursor = true;
+}
 
-    return MainMenu;
+void UMainMenu::Close() {
+    this->RemoveFromViewport();
+
+    UWorld* World = GetWorld();
+    if(Assert::NotNull(World, "World"))  return;
+
+    APlayerController* PlayerController = World->GetFirstPlayerController(); 
+    if(Assert::NotNull(PlayerController, "PlayerController"))  return;
+
+	FInputModeGameOnly InputModeData;
+	PlayerController->SetInputMode(InputModeData);
+	PlayerController->bShowMouseCursor = false;
+}
+
+void UMainMenu::Show(
+    UWorld* World,
+    UClass* WidgetClass,
+    IMenuInterface* menuInterface
+) {
+    if(Assert::NotNull(World, "World"))  return;
+    if(Assert::NotNull(WidgetClass, "MainMenuWidgetClass")) return;
+    if(Assert::NotNull(menuInterface, "MenuInterface")) return;
+
+    APlayerController* PlayerController = World->GetFirstPlayerController(); 
+    if(Assert::NotNull(PlayerController, "PlayerController"))  return;
+
+    UMainMenu* MainMenu = CreateWidget<UMainMenu>(PlayerController, WidgetClass);
+    if(Assert::NotNull(MainMenu, "MainMenuWidget")) return;
+
+    MainMenu->Setup(menuInterface);
 }
