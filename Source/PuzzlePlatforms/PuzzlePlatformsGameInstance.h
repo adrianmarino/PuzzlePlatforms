@@ -2,12 +2,14 @@
 
 #include "PuzzlePlatforms.h"
 #include "Engine/Engine.h"
+#include "MenuSystem/MenuInterface.h"
+#include "MenuSystem/MainMenu.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Blueprint/UserWidget.h"
 #include "PuzzlePlatformsGameInstance.generated.h"
 
 UCLASS()
-class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance
+class PUZZLEPLATFORMS_API UPuzzlePlatformsGameInstance : public UGameInstance, public IMenuInterface
 {
 	GENERATED_BODY()
 
@@ -21,7 +23,7 @@ private:
 // Attributes
 //-----------------------------------------------------------------------------
 private:
-	TSubclassOf<UUserWidget> MenuClass;
+	TSubclassOf<UMainMenu> MenuClass;
 
 //-----------------------------------------------------------------------------
 // Constructors
@@ -45,4 +47,8 @@ public:
 
 	UFUNCTION(Exec)
 	void JoinToHostGame(FString Address);
+
+	virtual void StartHostGameAction() override;
+
+	virtual void JoinToHostGameAction() override;
 };

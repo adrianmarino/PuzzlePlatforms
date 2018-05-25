@@ -15,12 +15,17 @@ UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance() {
 
 void UPuzzlePlatformsGameInstance::Init() {
     UE_LOG(LogTemp, Warning, TEXT("Found Class: %s"), *MenuClass->GetName());
-    UE_LOG(LogTemp, Warning, TEXT("Initialize Game Instance!"));
-    
+    UE_LOG(LogTemp, Warning, TEXT("Initialize Game Instance!"));    
 }
 
-void UPuzzlePlatformsGameInstance::LoadMainMenu() { 
-    GameCommand::LoadMainMenu(GetFirstLocalPlayerController(), *MenuClass);
+void UPuzzlePlatformsGameInstance::LoadMainMenu() {
+    UMainMenu::CreateAndShow(GetFirstLocalPlayerController(), *MenuClass, this);
+}
+
+void UPuzzlePlatformsGameInstance::StartHostGameAction() { GameCommand::StartHostGame(GetWorld()); };
+
+void UPuzzlePlatformsGameInstance::JoinToHostGameAction() {
+    GameCommand::JoinToHostGame(GetFirstLocalPlayerController(), TEXT("127.0.0.1"));
 }
 
 void UPuzzlePlatformsGameInstance::StartHostGame() { GameCommand::StartHostGame(GetWorld()); }

@@ -33,18 +33,3 @@ void GameCommand::JoinToHostGame(APlayerController* PlayerController, FString Ad
     Screen::Info(FString::Printf(TEXT("Join to Game in %s adress"), *Address));
     PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
 }
-
-void GameCommand::LoadMainMenu(APlayerController* PlayerController, UClass* WidgetClass) {
-    if(Assert::NotNull(PlayerController, "PlayerController")) return;
-    if(Assert::NotNull(WidgetClass, "MainMenuWidgetClass")) return;
-
-    UUserWidget* MainMenu = CreateWidget<UUserWidget>(PlayerController, WidgetClass);
-    if(Assert::NotNull(MainMenu, "MainMenuWidget")) return;
-    MainMenu->AddToViewport();
-
-    FInputModeUIOnly InputModeData;
-    InputModeData.SetWidgetToFocus(MainMenu->TakeWidget());
-    InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-    PlayerController->SetInputMode(InputModeData);
-    PlayerController->bShowMouseCursor = true;
-}
