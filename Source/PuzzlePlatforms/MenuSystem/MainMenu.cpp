@@ -18,6 +18,14 @@ void UMainMenu::JoinBackButtonOnClicked() {
     MenuSwitcher->SetActiveWidget(MainMenu);
 }
 
+void UMainMenu::JoinButtonOnClicked() {
+    FString IPAddress = IPAddressTextBox->Text.ToString();
+    if(IPAddress.IsEmpty()) return;
+    this->Close();
+    MenuInterface->JoinToHostGameAction(IPAddress);
+}
+
+
 bool UMainMenu::Initialize() {
     bool Success = Super::Initialize();
     if(!Success) return false;
@@ -25,6 +33,7 @@ bool UMainMenu::Initialize() {
     StartHostGameButton->OnClicked.AddDynamic(this, &UMainMenu::StartHostGameButtonOnClicked);
     JoinToHostGameButton->OnClicked.AddDynamic(this, &UMainMenu::JoinToHostGameButtonOnClicked);
     JoinBackButton->OnClicked.AddDynamic(this, &UMainMenu::JoinBackButtonOnClicked);
+    JoinButton->OnClicked.AddDynamic(this, &UMainMenu::JoinButtonOnClicked);
     return true;
 }
 

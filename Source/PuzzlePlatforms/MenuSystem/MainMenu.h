@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
 #include "Components/WidgetSwitcher.h"
+#include "Components/EditableTextBox.h"
 #include "MenuInterface.h"
 #include "MainMenu.generated.h"
 
@@ -26,7 +27,13 @@ protected:
 	UButton* JoinToHostGameButton;
 
 	UPROPERTY(meta = (BindWidget))
+	UButton* JoinButton;
+
+	UPROPERTY(meta = (BindWidget))
 	UButton* JoinBackButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UEditableTextBox* IPAddressTextBox;
 
 	UPROPERTY(meta = (BindWidget))
 	UWidgetSwitcher* MenuSwitcher;
@@ -62,4 +69,7 @@ protected:
 
 	UFUNCTION()
 	void JoinBackButtonOnClicked();
+
+	UFUNCTION()
+	void JoinButtonOnClicked();
 };

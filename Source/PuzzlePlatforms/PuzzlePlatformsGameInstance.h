@@ -50,5 +50,5 @@ public:
 
 	virtual void StartHostGameAction() override;
 
-	virtual void JoinToHostGameAction() override;
+	virtual void JoinToHostGameAction(FString IPAddress) override;
 };

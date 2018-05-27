@@ -22,8 +22,8 @@ void UPuzzlePlatformsGameInstance::LoadMainMenu() { UMainMenu::Show(GetWorld(), 
 
 void UPuzzlePlatformsGameInstance::StartHostGameAction() { GameCommand::StartHostGame(GetWorld()); };
 
-void UPuzzlePlatformsGameInstance::JoinToHostGameAction() {
-    GameCommand::JoinToHostGame(GetFirstLocalPlayerController(), TEXT("192.168.1.7"));
+void UPuzzlePlatformsGameInstance::JoinToHostGameAction(FString IPAddress) {
+    GameCommand::JoinToHostGame(GetFirstLocalPlayerController(), IPAddress);
 }
 
 void UPuzzlePlatformsGameInstance::StartHostGame() { GameCommand::StartHostGame(GetWorld()); }
