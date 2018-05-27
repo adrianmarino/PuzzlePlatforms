@@ -17,5 +17,5 @@ public:
 	
 	virtual void StartHostGameAction() = 0;
 
-	virtual void JoinToHostGameAction(FString IPAddress) = 0;
+	virtual void JoinToHostGameAction(FString& IPAddress) = 0;
 };

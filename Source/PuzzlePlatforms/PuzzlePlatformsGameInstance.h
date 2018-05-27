@@ -46,9 +46,9 @@ public:
 	void StartHostGame();
 
 	UFUNCTION(Exec)
-	void JoinToHostGame(FString Address);
+	void JoinToHostGame(FString& IPAddress);
 
 	virtual void StartHostGameAction() override;
 
-	virtual void JoinToHostGameAction(FString IPAddress) override;
+	virtual void JoinToHostGameAction(FString& IPAddress) override;
 };

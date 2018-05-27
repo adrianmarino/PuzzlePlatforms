@@ -27,9 +27,9 @@ void GameCommand::StartHostGame(UWorld* World) {
     World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
 }
 
-void GameCommand::JoinToHostGame(APlayerController* PlayerController, FString Address) {
+void GameCommand::JoinToHostGame(APlayerController* PlayerController, FString& IPAddress) {
     if(Assert::NotNull(PlayerController, "PlayerController")) return; 
 
-    Screen::Info(FString::Printf(TEXT("Join to Game in %s adress"), *Address));
-    PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
+    Screen::Info(FString::Printf(TEXT("Join to Game in %s adress"), *IPAddress));
+    PlayerController->ClientTravel(IPAddress, ETravelType::TRAVEL_Absolute);
 }
