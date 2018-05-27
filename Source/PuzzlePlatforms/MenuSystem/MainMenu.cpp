@@ -10,17 +10,21 @@ void UMainMenu::StartHostGameButtonOnClicked() {
     MenuInterface->StartHostGameAction();
 }
 
-void UMainMenu::JoinToHostGameButtonOnClicked(){
-    this->Close();
-    MenuInterface->JoinToHostGameAction();
+void UMainMenu::JoinToHostGameButtonOnClicked() {
+    MenuSwitcher->SetActiveWidget(JoinMenu);
+}
+
+void UMainMenu::JoinBackButtonOnClicked() {
+    MenuSwitcher->SetActiveWidget(MainMenu);
 }
 
 bool UMainMenu::Initialize() {
     bool Success = Super::Initialize();
     if(!Success) return false;
- 
+
     StartHostGameButton->OnClicked.AddDynamic(this, &UMainMenu::StartHostGameButtonOnClicked);
     JoinToHostGameButton->OnClicked.AddDynamic(this, &UMainMenu::JoinToHostGameButtonOnClicked);
+    JoinBackButton->OnClicked.AddDynamic(this, &UMainMenu::JoinBackButtonOnClicked);
     return true;
 }
 

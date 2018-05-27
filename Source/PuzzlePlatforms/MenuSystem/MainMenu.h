@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Button.h"
+#include "Components/WidgetSwitcher.h"
 #include "MenuInterface.h"
 #include "MainMenu.generated.h"
 
@@ -23,6 +24,18 @@ protected:
 
 	UPROPERTY(meta = (BindWidget))
 	UButton* JoinToHostGameButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* JoinBackButton;
+
+	UPROPERTY(meta = (BindWidget))
+	UWidgetSwitcher* MenuSwitcher;
+
+	UPROPERTY(meta = (BindWidget))
+	UWidget* JoinMenu;
+
+	UPROPERTY(meta = (BindWidget))
+	UWidget* MainMenu;
 
 //-----------------------------------------------------------------------------
 // Methods
@@ -46,4 +59,7 @@ protected:
 
 	UFUNCTION()
 	void JoinToHostGameButtonOnClicked();
+
+	UFUNCTION()
+	void JoinBackButtonOnClicked();
 };
