@@ -23,7 +23,7 @@ void UPuzzlePlatformsGameInstance::LoadMainMenu() { UMainMenu::Show(GetWorld(), 
 void UPuzzlePlatformsGameInstance::StartHostGameAction() { GameCommand::StartHostGame(GetWorld()); };
 
 void UPuzzlePlatformsGameInstance::JoinToHostGameAction() {
-    GameCommand::JoinToHostGame(GetFirstLocalPlayerController(), TEXT("127.0.0.1"));
+    GameCommand::JoinToHostGame(GetFirstLocalPlayerController(), TEXT("192.168.1.7"));
 }
 
 void UPuzzlePlatformsGameInstance::StartHostGame() { GameCommand::StartHostGame(GetWorld()); }

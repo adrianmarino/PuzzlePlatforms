@@ -22,7 +22,7 @@ protected:
 	UButton* StartHostGameButton;
 
 	UPROPERTY(meta = (BindWidget))
-	UButton* JoinGameButton;
+	UButton* JoinToHostGameButton;
 
 //-----------------------------------------------------------------------------
 // Methods

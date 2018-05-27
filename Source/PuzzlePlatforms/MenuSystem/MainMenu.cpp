@@ -20,7 +20,7 @@ bool UMainMenu::Initialize() {
     if(!Success) return false;
  
     StartHostGameButton->OnClicked.AddDynamic(this, &UMainMenu::StartHostGameButtonOnClicked);
-    JoinGameButton->OnClicked.AddDynamic(this, &UMainMenu::JoinToHostGameButtonOnClicked);
+    JoinToHostGameButton->OnClicked.AddDynamic(this, &UMainMenu::JoinToHostGameButtonOnClicked);
     return true;
 }
 
