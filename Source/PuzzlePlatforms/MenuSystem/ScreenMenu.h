@@ -29,8 +29,8 @@ protected:
 // Methods
 //-----------------------------------------------------------------------------
 public:
-	void SetController(IScreenMenuInterface* Controller);
-		
+	void SetController(IScreenMenuInterface* controller);
+
 	static void Show(UWorld* World, UClass* WidgetClass, IScreenMenuInterface* Controller);
 
 protected:

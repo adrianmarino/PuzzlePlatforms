@@ -12,7 +12,7 @@ public:
         FString Path, 
         std::function<void(UClass*)> Handler
     ) {
-        static ConstructorHelpers::FClassFinder<UUserWidget> ClassFinder(*Path);
+        ConstructorHelpers::FClassFinder<UUserWidget> ClassFinder(*Path);
         if(ClassFinder.Class == nullptr) {
             Screen::Error(TEXT("Not Found Widget class for %s"), &Path);
             return;

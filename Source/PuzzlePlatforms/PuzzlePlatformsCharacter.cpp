@@ -14,6 +14,8 @@
 
 APuzzlePlatformsCharacter::APuzzlePlatformsCharacter()
 {
+	BlueprintUtils::WidgetClassFrom(SCREEN_MENU_BP_PATH, [&](UClass* Class) { ScreenMenuClass = Class; });
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -145,7 +147,6 @@ void APuzzlePlatformsCharacter::MoveRight(float Value)
 
 void APuzzlePlatformsCharacter::BeginPlay() {
 	Super::BeginPlay();
-	BlueprintUtils::WidgetClassFrom(SCREEN_MENU_BP_PATH, [&](UClass* Class) { ScreenMenuClass = Class; });
 }
 
 void APuzzlePlatformsCharacter::CancelAction() {};

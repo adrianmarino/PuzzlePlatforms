@@ -41,3 +41,7 @@ void UScreenMenu::Show(UWorld* World, UClass* WidgetClass, IScreenMenuInterface*
 
     Widget->SetController(Controller);
 }
+
+void UScreenMenu::SetController(IScreenMenuInterface* controller) {
+    this->Controller = controller;
+}
