@@ -17,8 +17,6 @@ APuzzlePlatformsCharacter::APuzzlePlatformsCharacter()
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
-
-		
 	// set our turn rates for input
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
@@ -39,6 +37,7 @@ APuzzlePlatformsCharacter::APuzzlePlatformsCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+
 }
 
 void APuzzlePlatformsCharacter::InitializeCamera()
@@ -54,6 +53,7 @@ void APuzzlePlatformsCharacter::InitializeCamera()
 
 //////////////////////////////////////////////////////////////////////////
 // Input
+//////////////////////////////////////////////////////////////////////////
 
 void APuzzlePlatformsCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
@@ -79,8 +79,13 @@ void APuzzlePlatformsCharacter::SetupPlayerInputComponent(class UInputComponent*
 
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &APuzzlePlatformsCharacter::OnResetVR);
+
+	PlayerInputComponent->BindKey(EKeys::M, IE_Released, this, &APuzzlePlatformsCharacter::OnShowMenu);
 }
 
+void APuzzlePlatformsCharacter::OnShowMenu() { 
+	UScreenMenu::Show(GetWorld(), ScreenMenuClass, this);
+}
 
 void APuzzlePlatformsCharacter::OnResetVR()
 {
@@ -137,3 +142,12 @@ void APuzzlePlatformsCharacter::MoveRight(float Value)
 		AddMovementInput(Direction, Value);
 	}
 }
+
+void APuzzlePlatformsCharacter::BeginPlay() {
+	Super::BeginPlay();
+	BlueprintUtils::WidgetClassFrom(SCREEN_MENU_BP_PATH, [&](UClass* Class) { ScreenMenuClass = Class; });
+}
+
+void APuzzlePlatformsCharacter::CancelAction() {};
+
+void APuzzlePlatformsCharacter::LeaveGameAction() {};

@@ -2,12 +2,25 @@
 
 #include "PuzzlePlatforms.h"
 #include "GameFramework/Character.h"
+#include "MenuSystem/ScreenMenuInterface.h"
+#include "MenuSystem/ScreenMenu.h"
 #include "PuzzlePlatformsCharacter.generated.h"
 
 UCLASS(config=Game)
-class APuzzlePlatformsCharacter : public ACharacter
+class APuzzlePlatformsCharacter : public ACharacter, public IScreenMenuInterface
 {
 	GENERATED_BODY()
+
+//-----------------------------------------------------------------------------
+// Constants
+//-----------------------------------------------------------------------------
+private:
+	const TCHAR* SCREEN_MENU_BP_PATH = TEXT("/Game/MenuSystem/WBP_ScreenMenu");
+
+//-----------------------------------------------------------------------------
+// Attributes
+//-----------------------------------------------------------------------------
+	TSubclassOf<class UUserWidget> ScreenMenuClass;
 
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -28,6 +41,8 @@ public:
 	float BaseLookUpRate;
 
 protected:
+	UFUNCTION()
+	void OnShowMenu();
 
 	/** Resets HMD orientation in VR. */
 	void OnResetVR();
@@ -69,5 +84,11 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	void BeginPlay();
+
+	virtual void CancelAction() override;
+
+	virtual void LeaveGameAction() override;
 };
 

@@ -14,9 +14,10 @@ public:
     ) {
         static ConstructorHelpers::FClassFinder<UUserWidget> ClassFinder(*Path);
         if(ClassFinder.Class == nullptr) {
-            UE_LOG(LogTemp, Error, TEXT("Not Found Widget class for %s"), &Path);
+            Screen::Error(TEXT("Not Found Widget class for %s"), &Path);
             return;
         }
+        UE_LOG(LogTemp, Warning, TEXT("Found Class: %s"), *ClassFinder.Class->GetName());
         Handler(ClassFinder.Class);
     }
 };

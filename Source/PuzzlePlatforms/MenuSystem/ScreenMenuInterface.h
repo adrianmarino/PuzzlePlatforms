@@ -2,21 +2,20 @@
 
 #include "CoreMinimal.h"
 #include "UObject/Interface.h"
-#include "MenuInterface.generated.h"
+#include "ScreenMenuInterface.generated.h"
 
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
-class UMenuInterface : public UInterface { GENERATED_BODY() };
+class UScreenMenuInterface : public UInterface { GENERATED_BODY() };
 
-class PUZZLEPLATFORMS_API IMenuInterface
+class PUZZLEPLATFORMS_API IScreenMenuInterface
 {
 	GENERATED_BODY()
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	
-	virtual void StartHostGameAction() = 0;
 
-	virtual void JoinToHostGameAction(FString& IPAddress) = 0;
+	virtual void CancelAction() = 0;
 
+	virtual void LeaveGameAction() = 0;
 };

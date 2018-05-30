@@ -22,7 +22,7 @@ class Screen
 		}
 
 		static void Error(FString Msg) { 
-			Message(TEXT("ERROR: ") + Msg, FColor::Red, 5);
+			Message(TEXT("ERROR: ") + Msg, FColor::Red, 20);
 		}
 
 		static void Message(const FString Msg, FColor Color, float Delay) { 
@@ -32,7 +32,7 @@ class Screen
 		static void Error(const FString Fmt, void* Arg) {
 			GEngine->AddOnScreenDebugMessage(
 				-1, 
-				5, 
+				20, 
 				FColor::Red,  
 				TEXT("ERROR: ") + FString::Printf(*Fmt, Arg)
 			);
@@ -41,7 +41,7 @@ class Screen
 		static void Error(const FString Fmt, void* Arg1, void* Arg2) {
 			GEngine->AddOnScreenDebugMessage(
 				-1, 
-				5, 
+				20, 
 				FColor::Red, 
 				TEXT("ERROR: ") + FString::Printf(*Fmt, Arg1, Arg2)
 			);

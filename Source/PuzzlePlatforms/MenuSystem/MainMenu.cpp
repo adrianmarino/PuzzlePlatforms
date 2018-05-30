@@ -1,31 +1,8 @@
 #include "MainMenu.h"
-#include "../Utils.h"
 
 //-----------------------------------------------------------------------------
 // Methods
 //-----------------------------------------------------------------------------
-
-void UMainMenu::StartHostGameButtonOnClicked() {
-    this->Close();
-    MenuInterface->StartHostGameAction();
-}
-
-void UMainMenu::JoinToHostGameButtonOnClicked() {
-    MenuSwitcher->SetActiveWidget(JoinMenu);
-}
-
-void UMainMenu::JoinBackButtonOnClicked() {
-    MenuSwitcher->SetActiveWidget(MainMenu);
-}
-
-void UMainMenu::JoinButtonOnClicked() {
-    FString IPAddress = IPAddressTextBox->Text.ToString();
-    if(IPAddress.IsEmpty()) return;
-    this->Close();
-    MenuInterface->JoinToHostGameAction(IPAddress);
-}
-
-
 bool UMainMenu::Initialize() {
     bool Success = Super::Initialize();
     if(!Success) return false;
@@ -37,54 +14,42 @@ bool UMainMenu::Initialize() {
     return true;
 }
 
-void UMainMenu::Setup(IMenuInterface* menuInterface) {
-    if(Assert::NotNull(menuInterface, "MenuInterface")) return;
-    MenuInterface = menuInterface;
+void UMainMenu::StartHostGameButtonOnClicked() {
+    this->Close();
+    Controller->StartHostGameAction();
+}
+void UMainMenu::JoinButtonOnClicked() {
+    FString IPAddress = IPAddressTextBox->Text.ToString();
+    if(IPAddress.IsEmpty()) return;
+    this->Close();
+    Controller->JoinToHostGameAction(IPAddress);
+}
 
-    this->AddToViewport();
+void UMainMenu::JoinToHostGameButtonOnClicked() { MenuSwitcher->SetActiveWidget(JoinMenu); }
+void UMainMenu::JoinBackButtonOnClicked() { MenuSwitcher->SetActiveWidget(MainMenu); }
+
+void UMainMenu::Show(UWorld* World, UClass* WidgetClass, IMenuInterface* Controller) {
+    if(Assert::NotNull(World, "World"))  return;
+    if(Assert::NotNull(WidgetClass, "MainMenuClass")) return;
+    if(Assert::NotNull(Controller, "MainMenuController")) return;
+
+    UE_LOG(LogTemp, Warning, TEXT("Found Class: %s"), *WidgetClass->GetName());
+    UMainMenu* Widget = CreateWidget<UMainMenu>(World, WidgetClass);
+    if(Assert::NotNull(Widget, WidgetClass->GetName())) return;
+
+    Widget->AddToViewport();
 
     FInputModeUIOnly InputModeData;
-    InputModeData.SetWidgetToFocus(this->TakeWidget());
+    InputModeData.SetWidgetToFocus(Widget->TakeWidget());
     InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-
-    UWorld* World = GetWorld();
-    if(Assert::NotNull(World, "World"))  return;
 
     APlayerController* PlayerController = World->GetFirstPlayerController(); 
     if(Assert::NotNull(PlayerController, "PlayerController"))  return;
 
     PlayerController->SetInputMode(InputModeData);
     PlayerController->bShowMouseCursor = true;
+
+    Widget->SetController(Controller);
 }
 
-void UMainMenu::Close() {
-    this->RemoveFromViewport();
-
-    UWorld* World = GetWorld();
-    if(Assert::NotNull(World, "World"))  return;
-
-    APlayerController* PlayerController = World->GetFirstPlayerController(); 
-    if(Assert::NotNull(PlayerController, "PlayerController"))  return;
-
-	FInputModeGameOnly InputModeData;
-	PlayerController->SetInputMode(InputModeData);
-	PlayerController->bShowMouseCursor = false;
-}
-
-void UMainMenu::Show(
-    UWorld* World,
-    UClass* WidgetClass,
-    IMenuInterface* menuInterface
-) {
-    if(Assert::NotNull(World, "World"))  return;
-    if(Assert::NotNull(WidgetClass, "MainMenuWidgetClass")) return;
-    if(Assert::NotNull(menuInterface, "MenuInterface")) return;
-
-    APlayerController* PlayerController = World->GetFirstPlayerController(); 
-    if(Assert::NotNull(PlayerController, "PlayerController"))  return;
-
-    UMainMenu* MainMenu = CreateWidget<UMainMenu>(PlayerController, WidgetClass);
-    if(Assert::NotNull(MainMenu, "MainMenuWidget")) return;
-
-    MainMenu->Setup(menuInterface);
-}
+void UMainMenu::SetController(IMenuInterface* controller) { this->Controller = controller; }

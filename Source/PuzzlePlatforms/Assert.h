@@ -7,7 +7,9 @@ class Assert {
 public:
     static bool NotNull(void* Reference, FString ClassName) {
         if(Reference != nullptr) return false;
-        Screen::Error(TEXT("Error: Null %s reference!"), &ClassName);
+        FString Message = FString::Printf(TEXT("Null %s reference!"), *ClassName);
+        Screen::Error(Message);
+        UE_LOG(LogTemp, Error, TEXT("%s"), *Message); 
         return true;
     }
 

@@ -23,7 +23,7 @@ private:
 // Attributes
 //-----------------------------------------------------------------------------
 private:
-	TSubclassOf<UMainMenu> MenuClass;
+	TSubclassOf<class UUserWidget> MainMenuClass;
 
 //-----------------------------------------------------------------------------
 // Constructors

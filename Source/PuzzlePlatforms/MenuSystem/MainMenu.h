@@ -6,18 +6,19 @@
 #include "Components/WidgetSwitcher.h"
 #include "Components/EditableTextBox.h"
 #include "MenuInterface.h"
+#include "MenuUserWidget.h"
 #include "MainMenu.generated.h"
 
 UCLASS()
-class PUZZLEPLATFORMS_API UMainMenu : public UUserWidget
-{
+class PUZZLEPLATFORMS_API UMainMenu : public UMenuUserWidget {
+
 	GENERATED_BODY()
 
 //-----------------------------------------------------------------------------
 // Attributes
 //-----------------------------------------------------------------------------
 private:
-	IMenuInterface* MenuInterface;
+	IMenuInterface* Controller;
 
 protected:
 	UPROPERTY(meta = (BindWidget))
@@ -48,17 +49,11 @@ protected:
 // Methods
 //-----------------------------------------------------------------------------
 public:
-	void Close();
-
-	static void Show(
-		UWorld* World,
-		UClass* WidgetClass,
-		IMenuInterface* menuInterface
-	);
+	void SetController(IMenuInterface* controller);
+	
+	static void Show(UWorld* World, UClass* WidgetClass, IMenuInterface* Controller);
 
 protected:
-	void Setup(IMenuInterface* menuInterface);
-
 	virtual bool Initialize();
 
 	UFUNCTION()
