@@ -40,3 +40,10 @@ void GameCommand::JoinToHostGame(APlayerController* PlayerController, FString& I
     Screen::Info(FString::Printf(TEXT("Join to Game in %s adress"), *IPAddress));
     PlayerController->ClientTravel(IPAddress, ETravelType::TRAVEL_Absolute);
 }
+
+void GameCommand::Quit(APlayerController* PlayerController) {
+    if(Assert::NotNull(PlayerController, "PlayerController")) return; 
+
+    Screen::Info(TEXT("Quit Game!"));
+    PlayerController->ConsoleCommand("quit");
+}

@@ -34,6 +34,9 @@ protected:
 	UButton* JoinBackButton;
 
 	UPROPERTY(meta = (BindWidget))
+	UButton* QuitButton;
+
+	UPROPERTY(meta = (BindWidget))
 	UEditableTextBox* IPAddressTextBox;
 
 	UPROPERTY(meta = (BindWidget))
@@ -67,4 +70,7 @@ protected:
 
 	UFUNCTION()
 	void JoinButtonOnClicked();
+
+	UFUNCTION()
+	void QuitButtonOnClicked();
 };

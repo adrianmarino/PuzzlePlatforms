@@ -49,3 +49,6 @@ void UPuzzlePlatformsGameInstance::CancelAction() {};
 void UPuzzlePlatformsGameInstance::LeaveGameAction() {
     GameCommand::LeaveGame(GetFirstLocalPlayerController());
 };
+
+
+void UPuzzlePlatformsGameInstance::QuitAction() { GameCommand::Quit(GetFirstLocalPlayerController()); };

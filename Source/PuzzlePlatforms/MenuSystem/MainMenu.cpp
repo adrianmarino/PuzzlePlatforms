@@ -11,6 +11,7 @@ bool UMainMenu::Initialize() {
     JoinToHostGameButton->OnClicked.AddDynamic(this, &UMainMenu::JoinToHostGameButtonOnClicked);
     JoinBackButton->OnClicked.AddDynamic(this, &UMainMenu::JoinBackButtonOnClicked);
     JoinButton->OnClicked.AddDynamic(this, &UMainMenu::JoinButtonOnClicked);
+    QuitButton->OnClicked.AddDynamic(this, &UMainMenu::QuitButtonOnClicked);
     return true;
 }
 
@@ -27,6 +28,8 @@ void UMainMenu::JoinButtonOnClicked() {
 
 void UMainMenu::JoinToHostGameButtonOnClicked() { MenuSwitcher->SetActiveWidget(JoinMenu); }
 void UMainMenu::JoinBackButtonOnClicked() { MenuSwitcher->SetActiveWidget(MainMenu); }
+
+void UMainMenu::QuitButtonOnClicked() { Controller->QuitAction(); }
 
 void UMainMenu::Show(UWorld* World, UClass* WidgetClass, IMenuInterface* Controller) {
     if(Assert::NotNull(World, "World"))  return;

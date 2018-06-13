@@ -14,6 +14,7 @@ class GameCommand {
         static void StartHostGame(UWorld* World);
         static void JoinToHostGame(APlayerController* PlayerController, FString& Address);
         static void LeaveGame(APlayerController* PlayerController);
+        static void Quit(APlayerController* PlayerController);
 
     private:
         GameCommand() {}

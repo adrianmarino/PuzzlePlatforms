@@ -68,4 +68,6 @@ public:
 	virtual void CancelAction() override;
 
 	virtual void LeaveGameAction() override;
+
+	virtual void QuitAction() override;
 };
