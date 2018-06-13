@@ -9,6 +9,10 @@ UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance() {
         MAIN_MENU_BP_PATH, 
         [&](UClass* Class) { MainMenuClass = Class; }
     );
+    BlueprintUtils::WidgetClassFrom(
+        SCREEN_MENU_BP_PATH, 
+        [&](UClass* Class) { ScreenMenuClass = Class; }
+    );
     UE_LOG(LogTemp, Warning, TEXT("Construct Game Instance!"));
 }
 
@@ -24,6 +28,10 @@ void UPuzzlePlatformsGameInstance::LoadMainMenu() {
     UMainMenu::Show(GetWorld(), MainMenuClass, this);
 }
 
+void UPuzzlePlatformsGameInstance::LoadScreenMenu() {
+    UScreenMenu::Show(GetWorld(), ScreenMenuClass, this);
+}
+
 void UPuzzlePlatformsGameInstance::StartHostGameAction() { GameCommand::StartHostGame(GetWorld()); };
 
 void UPuzzlePlatformsGameInstance::JoinToHostGameAction(FString& IPAddress) {
@@ -35,3 +43,9 @@ void UPuzzlePlatformsGameInstance::StartHostGame() { GameCommand::StartHostGame(
 void UPuzzlePlatformsGameInstance::JoinToHostGame(FString& IPAddress) { 
     GameCommand::JoinToHostGame(GetFirstLocalPlayerController(), IPAddress);
 }
+
+void UPuzzlePlatformsGameInstance::CancelAction() {};
+
+void UPuzzlePlatformsGameInstance::LeaveGameAction() {
+    GameCommand::LeaveGame(GetFirstLocalPlayerController());
+};

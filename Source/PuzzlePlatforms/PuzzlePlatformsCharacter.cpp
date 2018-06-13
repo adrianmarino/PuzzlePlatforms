@@ -1,4 +1,3 @@
-// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
 
 #include "PuzzlePlatformsCharacter.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
@@ -14,8 +13,6 @@
 
 APuzzlePlatformsCharacter::APuzzlePlatformsCharacter()
 {
-	BlueprintUtils::WidgetClassFrom(SCREEN_MENU_BP_PATH, [&](UClass* Class) { ScreenMenuClass = Class; });
-
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
@@ -81,12 +78,6 @@ void APuzzlePlatformsCharacter::SetupPlayerInputComponent(class UInputComponent*
 
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &APuzzlePlatformsCharacter::OnResetVR);
-
-	PlayerInputComponent->BindKey(EKeys::M, IE_Released, this, &APuzzlePlatformsCharacter::OnShowMenu);
-}
-
-void APuzzlePlatformsCharacter::OnShowMenu() { 
-	UScreenMenu::Show(GetWorld(), ScreenMenuClass, this);
 }
 
 void APuzzlePlatformsCharacter::OnResetVR()
@@ -144,11 +135,3 @@ void APuzzlePlatformsCharacter::MoveRight(float Value)
 		AddMovementInput(Direction, Value);
 	}
 }
-
-void APuzzlePlatformsCharacter::BeginPlay() {
-	Super::BeginPlay();
-}
-
-void APuzzlePlatformsCharacter::CancelAction() {};
-
-void APuzzlePlatformsCharacter::LeaveGameAction() {};

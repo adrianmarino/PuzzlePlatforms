@@ -27,6 +27,13 @@ void GameCommand::StartHostGame(UWorld* World) {
     World->ServerTravel("/Game/ThirdPersonCPP/Maps/ThirdPersonExampleMap?listen");
 }
 
+void GameCommand::LeaveGame(APlayerController* PlayerController) {
+    if(Assert::NotNull(PlayerController, "PlayerController")) return; 
+
+    Screen::Info(TEXT("Leave Game!"));
+    PlayerController->ClientTravel("/Game/MenuSystem/MainMenu", ETravelType::TRAVEL_Absolute);
+}
+
 void GameCommand::JoinToHostGame(APlayerController* PlayerController, FString& IPAddress) {
     if(Assert::NotNull(PlayerController, "PlayerController")) return; 
 
